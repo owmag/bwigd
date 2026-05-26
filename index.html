@@ -1,0 +1,3607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>B'Wig'd - Wig Service in Sydney</title>
+    <base href="/">
+    <meta name="description"
+        content="B'Wig'd is a Sydney wig service offering human hair, synthetic, and heat defiant wig styling and support.">
+    <meta name="theme-color" content="#13773a">
+    <link rel="canonical" href="https://bwigd.com.au/">
+    <link rel="icon" href="/bwigd-favi.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icons/icon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/icons/icon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="B'Wig'd">
+    <meta property="og:title" content="B'Wig'd - Wig Service in Sydney">
+    <meta property="og:description"
+        content="Sydney wig service offering human hair, synthetic, and heat defiant wig styling and support.">
+    <meta property="og:url" content="https://bwigd.com.au/">
+    <meta property="og:image" content="https://bwigd.com.au/bwigd-text.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="B'Wig'd - Wig Service in Sydney">
+    <meta name="twitter:description"
+        content="Sydney wig service offering human hair, synthetic, and heat defiant wig styling and support.">
+    <meta name="twitter:image" content="https://bwigd.com.au/bwigd-text.svg">
+    <script>
+        (function () {
+            const routePath = window.location.pathname.replace(/\/+$/, '') || '/';
+            if (routePath === '/' || routePath === '/gallery' || routePath === '/contact' || routePath === '/about') {
+                document.documentElement.classList.add('route-settling');
+            }
+        })();
+    </script>
+    <style>
+        @font-face {
+            font-family: 'NoiGroteskTrial';
+            src: url('./NoiGroteskTrial-Medium.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Mattone';
+            src: url('./Mattone-Black.woff2') format('woff2'),
+                url('./Mattone-Black.otf') format('opentype');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'MaziusDisplay';
+            src: url('./mazius-display-main/fonts/MaziusDisplay-Regular.woff2') format('woff2'),
+                url('./mazius-display-main/fonts/MaziusDisplay-Regular.woff') format('woff'),
+                url('./mazius-display-main/fonts/MaziusDisplay-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --content-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            /* Prevent automatic text size adjustment on mobile devices */
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'MaziusDisplay', serif;
+            background: rgb(19, 119, 58);
+            /* Gradient moved to .container - all layout tied to container for Android viewport fix */
+            height: 100vh;
+            height: 100dvh;
+            /* Dynamic viewport height for mobile browsers */
+            overflow: hidden;
+            position: relative;
+            cursor: default;
+            touch-action: none;
+            -webkit-overflow-scrolling: none;
+            /* 100% avoids viewport unit quirks on mobile (100vw can overflow) */
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Disable scrolling on HOME and CONTACT pages */
+        body:not(.gallery-active):not(.about-active) {
+            overflow: hidden !important;
+            touch-action: none !important;
+            overscroll-behavior: none !important;
+            -webkit-overflow-scrolling: none !important;
+        }
+
+        .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            /* All layout tied to container - fixes Android viewport shift */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgb(180, 220, 120) 0%, rgb(19, 119, 58) 80%, rgb(15, 80, 40) 100%);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px, 30px 30px, 70px 70px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100000;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            transition: backdrop-filter 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+
+        .menu.blur-active {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .menu-blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 75px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99998;
+            pointer-events: none;
+        }
+
+        /* Mobile responsive for menu blur height */
+        @media (max-width: 900px) {
+            .menu-blur {
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu-blur {
+                height: 40px;
+            }
+        }
+
+
+        .menu-item {
+            color: black;
+            font-family: 'Mattone', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            transition: color 0.3s ease;
+            z-index: 100001;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            color: white;
+        }
+
+        .menu-item:focus-visible,
+        .menu-overlay-item:focus-visible,
+        .contact-corner-text:focus-visible,
+        .contact-info-mobile-item:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 4px;
+        }
+
+        /* Active menu item styling - keep white text when active */
+        .menu-item.active {
+            color: white !important;
+        }
+
+        .menu-item.active:hover {
+            color: white !important;
+        }
+
+        /* Ensure active styling overrides everything */
+        body .menu-item.active {
+            color: white !important;
+        }
+
+        /* B'WIG'D should never be white, even when active */
+        .menu-item[data-bwigd="true"].active {
+            color: black !important;
+        }
+
+        .menu-item[data-bwigd="true"].active:hover {
+            color: black !important;
+        }
+
+        /* Green hover effect when any overlay is active */
+        body.overlay-active .menu-item:hover {
+            color: rgb(180, 220, 120);
+        }
+
+        /* Green hover and active when gallery is active */
+        body.gallery-active .menu-item:hover {
+            color: #3cb76bff !important;
+        }
+
+        body.gallery-active .menu-item.active {
+            color: #3cb76bff !important;
+        }
+
+        body.gallery-active .menu-item.active:hover {
+            color: #3cb76bff !important;
+        }
+
+        /* B'WIG'D stays black even when gallery is active */
+        body.gallery-active .menu-item[data-bwigd="true"] {
+            color: black !important;
+        }
+
+        body.gallery-active .menu-item[data-bwigd="true"]:hover {
+            color: black !important;
+        }
+
+        /* Keep CLOSE on top of overlay - only when it's CLOSE */
+        .menu-item[data-special="close"] {
+            z-index: 1001;
+            position: relative;
+            color: black !important;
+        }
+
+        .menu-item[data-special="close"]:hover {
+            color: black !important;
+            /* Keep black on hover for CLOSE only */
+        }
+
+        /* Animation styles for MENU/CLOSE transition */
+        .menu-item.slide-out-left {
+            animation: slideOutLeft 0.4s ease-out forwards;
+        }
+
+        .menu-item.slide-in-right {
+            animation: slideInRight 0.4s ease-out forwards;
+        }
+
+        @keyframes slideOutLeft {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Mobile animations for screens smaller than 900px */
+        @media (max-width: 900px) {
+            .menu-item.slide-out-left {
+                animation: slideOutLeftMobile 0.3s ease-out forwards;
+            }
+
+            .menu-item.slide-in-right {
+                animation: slideInRightMobile 0.3s ease-out forwards;
+            }
+
+            @keyframes slideOutLeftMobile {
+                0% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0;
+                }
+
+                100% {
+                    transform: translateX(-50px);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes slideInRightMobile {
+                0% {
+                    transform: translateX(50px);
+                    opacity: 0;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+
+                100% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        }
+
+        /* Full screen menu overlay - absolute to tie to container (Android viewport fix) */
+        .menu-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-overlay-item {
+            color: black;
+            font-family: 'Mattone', sans-serif;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 900;
+            margin: 20px 0;
+            transition: color 0.3s ease;
+            max-width: 90vw;
+            text-align: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            word-wrap: break-word;
+        }
+
+        .menu-overlay-item:hover {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Gallery overlay - White - absolute to tie to container (Android viewport fix) */
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 997;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .gallery-overlay.active {
+            opacity: 1;
+        }
+
+        /* Gallery content */
+        .gallery-content {
+            position: relative;
+            z-index: 1000;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            padding-top: 60px;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .gallery-overlay.active .gallery-content {
+            opacity: 1;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: start;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            gap: 0;
+            min-height: 100vh;
+        }
+
+        /* Add margin-top on screens larger than 900px (before menu collapses) */
+        @media (min-width: 901px) {
+            .gallery-grid {
+                margin-top: 30px;
+            }
+        }
+
+        /* Responsive gallery grid - reduce columns on smaller screens */
+        @media (max-width: 900px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .gallery-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        .gallery-item {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            align-self: start;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .gallery-item img.gallery-image-loaded {
+            opacity: 1;
+        }
+
+        /* Wig ID overlay - centered on hover (desktop only) */
+        .gallery-item-id-overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            background: rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 0;
+            padding: 8px 10px;
+            font-family: var(--content-font);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            line-height: 1;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: auto;
+            cursor: text;
+            user-select: text;
+            -webkit-user-select: text;
+            z-index: 10;
+        }
+
+        /* Show overlay on hover (desktop only) */
+        @media (hover: hover) and (pointer: fine) {
+            .gallery-item:hover img.gallery-image-loaded ~ .gallery-item-id-overlay {
+                opacity: 1;
+            }
+        }
+
+        /* Permanent bottom overlay (mobile - no mouse) */
+        .gallery-item-id-bottom {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            background: rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 0;
+            padding: 7px 10px;
+            font-family: var(--content-font);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            line-height: 1;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: auto;
+            cursor: text;
+            user-select: text;
+            -webkit-user-select: text;
+            z-index: 10;
+        }
+
+        .gallery-item img.gallery-image-loaded ~ .gallery-item-id-bottom {
+            opacity: 1;
+        }
+
+        .gallery-item-title-black {
+            color: black;
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        /* Hide bottom overlay on desktop (has mouse) */
+        @media (hover: hover) and (pointer: fine) {
+            .gallery-item-id-bottom {
+                display: none;
+            }
+        }
+
+        /* Contact overlay - Dark grey 1 - absolute to tie to container (Android viewport fix) */
+        .contact-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 998;
+            transform: translateY(100%);
+            transition: transform 0.5s ease-in-out;
+            overflow: visible;
+        }
+
+        .contact-overlay.active {
+            transform: translateY(0);
+        }
+
+        /* Contact big text - menu pattern: left/right bounds */
+        .contact-content {
+            position: relative;
+            z-index: 1000;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .contact-overlay.active .contact-content {
+            opacity: 1;
+        }
+
+        /* CONTACT BRIDGET - menu pattern: left:0 right:0, no vw */
+        .contact-text {
+            position: absolute;
+            top: 55%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            color: rgba(0, 0, 0, 1);
+            font-family: 'Mattone', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3rem, 7vw, 14rem);
+            line-height: 0.8;
+            text-align: center;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 100%;
+        }
+
+        .contact-text .contact-line {
+            margin-bottom: 15px;
+            white-space: nowrap;
+            overflow: visible;
+            text-overflow: unset;
+        }
+
+        /* Bottom contact text (phone/email) - menu pattern: bounded, wrap if needed */
+        .contact-corner-text {
+            position: absolute;
+            color: rgba(0, 0, 0, 1);
+            font-family: var(--content-font);
+            font-weight: 500;
+            font-size: clamp(2rem, 4vw, 4rem);
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: color 0.3s ease;
+            max-width: calc(100% - 40px);
+            overflow-wrap: break-word;
+        }
+
+        .contact-corner-text:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+
+        /* Disable hover and active effects on mobile devices */
+        @media (max-width: 900px) {
+            .contact-corner-text:hover,
+            .contact-corner-text:active {
+                color: rgba(0, 0, 0, 1);
+            }
+        }
+
+        /* Also disable on touch devices */
+        @media (hover: none) {
+            .contact-corner-text:hover,
+            .contact-corner-text:active {
+                color: rgba(0, 0, 0, 1);
+            }
+        }
+
+        .contact-corner-text.left {
+            bottom: 0;
+            left: 0;
+            text-align: left;
+        }
+
+        .contact-corner-text.right {
+            bottom: 0;
+            right: 0;
+            text-align: right;
+        }
+
+        /* Mobile contact info - hidden on desktop */
+        .contact-info-mobile {
+            display: none;
+        }
+
+        /* Mobile contact info - under Contact Bridget when menu collapses (900px and below) */
+        @media (max-width: 900px) {
+            .contact-corner-text.left,
+            .contact-corner-text.right {
+                display: none;
+            }
+            .contact-info-mobile {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                position: absolute;
+                bottom: 12%;
+                left: 50%;
+                transform: translate(-50%, 0);
+                text-align: center;
+            }
+            .contact-info-mobile-item {
+                color: rgba(0, 0, 0, 1);
+                font-family: var(--content-font);
+                font-weight: 500;
+                font-size: clamp(1.6rem, 4vw, 3rem);
+                line-height: 1.2;
+                letter-spacing: -0.03em;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+            .contact-info-mobile-item:hover,
+            .contact-info-mobile-item:active {
+                color: rgba(255, 255, 255, 1);
+            }
+        }
+        @media (max-width: 900px) and (hover: none) {
+            .contact-info-mobile-item:hover,
+            .contact-info-mobile-item:active {
+                color: rgba(0, 0, 0, 1);
+            }
+        }
+
+        /* Mobile responsive for corner text */
+        @media (max-width: 600px) {
+            .contact-corner-text {
+                font-size: clamp(1.6rem, 3vw, 3rem);
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-corner-text {
+                font-size: clamp(1.4rem, 2.4vw, 2.4rem);
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .contact-corner-text {
+                font-size: clamp(1.2rem, 2vw, 2rem);
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .contact-corner-text {
+                font-size: clamp(1rem, 1.8vw, 1.8rem);
+                padding: 6px;
+            }
+        }
+
+        /* Mobile responsive with viewport-aware font sizing */
+        @media (max-width: 900px) {
+            .contact-text {
+                padding: 20px;
+                /* Responsive font size: scales with viewport width but always fits on one line */
+                font-size: clamp(2.5rem, 7vw, 14rem);
+                line-height: 0.8;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contact-text {
+                padding: 15px;
+                /* Responsive font size for smaller screens - ensures single line */
+                font-size: clamp(2rem, 6vw, 9rem);
+                line-height: 0.8;
+            }
+        }
+
+        /* iPhone specific fixes */
+        @media (max-width: 480px) {
+            .contact-text {
+                padding: 10px;
+                font-size: clamp(1.8rem, 5.5vw, 5.5rem);
+                line-height: 0.8;
+            }
+        }
+
+        /* Extra small screens - Android fix */
+        @media (max-width: 400px) {
+            .contact-text {
+                padding: 8px;
+                font-size: clamp(1.6rem, 5vw, 4rem);
+                line-height: 0.8;
+            }
+        }
+
+        /* Very small screens - ensure single line */
+        @media (max-width: 360px) {
+            .contact-text {
+                padding: 5px;
+                font-size: clamp(1.4rem, 4.5vw, 3rem);
+                line-height: 0.8;
+            }
+        }
+
+        /* Extra tiny screens - final Android safety net */
+        @media (max-width: 320px) {
+            .contact-text {
+                padding: 5px;
+                font-size: clamp(1.2rem, 4vw, 2.5rem);
+                line-height: 0.8;
+            }
+        }
+
+        /* About overlay - Dark grey 2 - absolute to tie to container (Android viewport fix) */
+        .about-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            transform: translateY(100%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .about-overlay.active {
+            transform: translateY(0);
+        }
+
+        /* About content - menu pattern: left:0 right:0 bounds */
+        .about-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 80px 150px 40px 150px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .about-overlay.active .about-content {
+            opacity: 1;
+        }
+
+        /* About text - menu pattern: bounded, wrap long words */
+        .about-text {
+            color: rgba(0, 0, 0, 1);
+            font-family: var(--content-font);
+            font-weight: 400;
+            font-size: clamp(1.2rem, 2vw, 1.7rem);
+            line-height: 1.35;
+            text-align: left;
+            max-width: 800px;
+            width: 100%;
+            overflow-wrap: break-word;
+        }
+
+        .about-text img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .about-text h1 {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: -0.03em;
+        }
+
+        .about-text h2 {
+            font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+            font-weight: 500;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        /* Custom scrollbar for about content */
+        .about-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .about-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .about-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .about-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Mobile responsive for about text */
+
+
+        @media (max-width: 600px) {
+            .about-content {
+                padding: 60px 30px 20px 30px;
+            }
+
+            .about-text {
+                font-size: clamp(1.2rem, 3vw, 2rem);
+                line-height: 1.2;
+            }
+
+            .about-text h1 {
+                font-size: clamp(1.6rem, 4vw, 2.5rem);
+            }
+
+            .about-text h2 {
+                font-size: clamp(1.3rem, 3vw, 1.8rem);
+            }
+        }
+
+        /* Mobile menu for screens 900px and below */
+        @media (max-width: 900px) {
+            .menu {
+                justify-content: space-between;
+                padding: 0 10px;
+            }
+
+            /* Disable all hover effects on mobile */
+            .menu-item:hover,
+            .menu-item:active {
+                color: black !important;
+            }
+
+            .menu-overlay-item:hover,
+            .menu-overlay-item:active {
+                color: black !important;
+            }
+
+            body.overlay-active .menu-item:hover,
+            body.overlay-active .menu-item:active,
+            body.gallery-active .menu-item:hover,
+            body.gallery-active .menu-item:active {
+                color: black !important;
+            }
+
+            .menu-overlay-item {
+                font-size: clamp(1.8rem, 7vw, 3rem);
+                padding: 0 15px;
+            }
+
+        }
+
+        /* Also disable on touch devices */
+        @media (hover: none) {
+            .menu-item:hover,
+            .menu-item:active,
+            .menu-overlay-item:hover,
+            .menu-overlay-item:active {
+                color: black !important;
+            }
+
+            body.overlay-active .menu-item:hover,
+            body.overlay-active .menu-item:active,
+            body.gallery-active .menu-item:hover,
+            body.gallery-active .menu-item:active {
+                color: black !important;
+            }
+        }
+
+        /* Smaller screens - reduce menu item size */
+        @media (max-width: 600px) {
+            .menu-item {
+                font-size: 1.5rem;
+            }
+
+            .menu-overlay-item {
+                font-size: clamp(1.5rem, 6.5vw, 2.5rem);
+                padding: 0 10px;
+                margin: 15px 0;
+            }
+        }
+
+        /* Extra small screens - Android fix */
+        @media (max-width: 400px) {
+            .menu-overlay-item {
+                font-size: clamp(1.3rem, 6vw, 2rem);
+                padding: 0 8px;
+                margin: 12px 0;
+            }
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            top: 20px;
+        }
+
+        .shader-controls {
+            display: none;
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            z-index: 100001;
+            width: min(280px, calc(100% - 40px));
+            padding: 14px 16px;
+            color: black;
+            background: rgba(180, 220, 120, 0.72);
+            border: 1px solid rgba(0, 0, 0, 0.18);
+            border-radius: 18px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            font-family: 'NoiGroteskTrial', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.02em;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: auto;
+            max-height: calc(100dvh - 96px);
+            overflow-y: auto;
+        }
+
+        .shader-controls.is-hidden {
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+        }
+
+        .shader-controls-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-family: 'Mattone', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+        }
+
+        .shader-reset {
+            border: 0;
+            background: transparent;
+            color: black;
+            cursor: pointer;
+            font: inherit;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .shader-control {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px 12px;
+            align-items: center;
+            margin-top: 9px;
+        }
+
+        .shader-control label {
+            text-transform: uppercase;
+        }
+
+        .shader-value {
+            min-width: 42px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .shader-control input[type="range"] {
+            grid-column: 1 / -1;
+            width: 100%;
+            accent-color: rgb(19, 119, 58);
+        }
+
+        .shader-control input[type="color"] {
+            width: 100%;
+            height: 28px;
+            grid-column: 1 / -1;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            border-radius: 999px;
+            padding: 0;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .shader-section-label {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.18);
+            font-family: 'Mattone', sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+        }
+
+        @media (max-width: 600px) {
+            .shader-controls {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                width: auto;
+                padding: 12px;
+            }
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            border-top: 3px solid black;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.5s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+
+        .controls-info {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-ticker {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 900;
+            overflow: hidden;
+            pointer-events: none;
+            padding: 10px 0 12px;
+            color: black;
+            font-family: 'Mattone', sans-serif;
+            font-size: clamp(1.1rem, 2.2vw, 2.4rem);
+            font-weight: 900;
+            line-height: 1;
+            white-space: nowrap;
+            opacity: 1;
+            transform: translateY(0);
+            animation: homeTickerRollIn 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: opacity 0.55s ease, transform 0.55s ease, visibility 0s linear 0s;
+        }
+
+        .home-ticker-track {
+            display: flex;
+            width: max-content;
+            animation: tickerScroll 48s linear infinite;
+        }
+
+        .home-ticker-text {
+            display: inline-block;
+            padding-right: 0.5em;
+        }
+
+        .menu-overlay.active ~ .home-ticker,
+        .gallery-overlay.active ~ .home-ticker,
+        .contact-overlay.active ~ .home-ticker,
+        .about-overlay.active ~ .home-ticker {
+            opacity: 0;
+            transform: translateY(100%);
+            visibility: hidden;
+            transition: opacity 0.55s ease, transform 0.55s ease, visibility 0s linear 0.55s;
+        }
+
+        @keyframes homeTickerRollIn {
+            from {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes tickerScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff6b6b;
+            font-size: 1.2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .route-settle-cover {
+            position: absolute;
+            inset: 0;
+            z-index: 200000;
+            background: radial-gradient(circle at center, rgb(180, 220, 120) 0%, rgb(19, 119, 58) 80%, rgb(15, 80, 40) 100%);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+        }
+
+        .route-settle-cover.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.12s ease, visibility 0s linear 0s;
+        }
+
+        .route-settling .route-settle-cover {
+            opacity: 1;
+            visibility: visible;
+            transition: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="menu">
+            <div class="menu-item" data-bwigd="true" role="button" tabindex="0">HOME</div>
+            <div class="menu-item" role="button" tabindex="0">GALLERY</div>
+            <div class="menu-item" role="button" tabindex="0">CONTACT</div>
+            <div class="menu-item" role="button" tabindex="0">ABOUT</div>
+        </div>
+        <div class="menu-blur" style="display: none;"></div>
+
+        <!-- Full screen menu overlay -->
+        <div class="menu-overlay" id="menuOverlay">
+            <div class="menu-overlay-item" role="button" tabindex="0">GALLERY</div>
+            <div class="menu-overlay-item" role="button" tabindex="0">CONTACT</div>
+            <div class="menu-overlay-item" role="button" tabindex="0">ABOUT</div>
+        </div>
+
+        <!-- Gallery overlay - Black -->
+        <div class="gallery-overlay" id="galleryOverlay">
+            <div class="gallery-content" id="galleryContent">
+                <!-- Gallery content will be loaded here via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Contact overlay - Dark grey 1 -->
+        <div class="contact-overlay" id="contactOverlay">
+            <div class="contact-content" id="contactContent">
+                <!-- Contact content will be loaded here via JavaScript -->
+            </div>
+        </div>
+
+        <!-- About overlay - Dark grey 2 -->
+        <div class="about-overlay" id="aboutOverlay">
+            <div class="about-content" id="aboutContent"></div>
+        </div>
+
+        <div class="route-settle-cover" id="routeSettleCover" aria-hidden="true"></div>
+
+        <div class="home-ticker" aria-label="B'WIG'D mobile wig service in Sydney">
+            <div class="home-ticker-track" aria-hidden="true">
+                <span class="home-ticker-text">B'WIG'D &bull; MOBILE WIG SERVICE IN SYDNEY &bull;</span>
+                <span class="home-ticker-text">B'WIG'D &bull; MOBILE WIG SERVICE IN SYDNEY &bull;</span>
+                <span class="home-ticker-text">B'WIG'D &bull; MOBILE WIG SERVICE IN SYDNEY &bull;</span>
+                <span class="home-ticker-text">B'WIG'D &bull; MOBILE WIG SERVICE IN SYDNEY &bull;</span>
+            </div>
+        </div>
+
+        <div id="canvas-container">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <div class="shader-controls" id="shaderControls" aria-label="Model shader controls">
+            <div class="shader-controls-title">
+                <span>MODEL POSITION</span>
+                <button class="shader-reset" id="shaderReset" type="button">Reset</button>
+            </div>
+            <div class="shader-control">
+                <label for="modelYControl">Y Axis</label>
+                <span class="shader-value" data-position-value="modelY">0.20</span>
+                <input id="modelYControl" type="range" min="-2" max="2" step="0.01" value="0.2"
+                    data-position-setting="modelY">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GLTF Loader -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- Orbit Controls -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- HDR Loader -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
+
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+
+        // Create a gradient background that will be reflected in chrome
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        const context = canvas.getContext('2d');
+
+        // Create a radial gradient background
+        const gradient = context.createRadialGradient(256, 256, 0, 256, 256, 256);
+        gradient.addColorStop(0, '#ffffff');
+        gradient.addColorStop(0.3, '#e0e0e0');
+        gradient.addColorStop(0.6, '#a0a0a0');
+        gradient.addColorStop(1, '#404040');
+
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, 512, 512);
+
+        // Remove scene background to show CSS gradient
+        scene.background = null;
+
+        // Camera setup with zoomed in FOV
+        const camera = new THREE.PerspectiveCamera(
+            45, // Reduced FOV for zoom effect (was 75)
+            window.innerWidth / window.innerHeight, // Normal aspect ratio
+            0.1,
+            1000
+        );
+        camera.position.set(2, 2, 2);
+
+        // Renderer setup
+        const isMobileViewport = () => window.innerWidth <= 900;
+
+        const renderer = new THREE.WebGLRenderer({
+            antialias: !isMobileViewport(),
+            alpha: true,
+            powerPreference: 'high-performance'
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobileViewport() ? 1 : 1.5));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = false;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.0;
+        renderer.outputEncoding = THREE.sRGBEncoding;
+
+        // Add renderer to container
+        const canvasContainer = document.getElementById('canvas-container');
+        canvasContainer.appendChild(renderer.domElement);
+
+        const defaultShaderSettings = {
+            metalness: 0.75,
+            roughness: 0.34,
+            envMapIntensity: 5,
+            exposure: 1,
+            lightStrength: 1,
+            spinSpeed: 0.1,
+            rotationAngle: 7,
+            rotationTravel: 20,
+            tint: '#000000',
+            purpleColor: '#212121',
+            purpleAccent: '#212121',
+            purpleGlow: 3,
+            purpleContrast: 4
+        };
+        const shaderSettings = { ...defaultShaderSettings };
+        const defaultPositionSettings = {
+            modelY: 0.2
+        };
+        const positionSettings = { ...defaultPositionSettings };
+        const shaderControls = document.getElementById('shaderControls');
+        const shaderReset = document.getElementById('shaderReset');
+        let purpleEnvironment = null;
+        window.chromeMaterial = null;
+
+        function createPurpleEnvironmentMaterial(offset) {
+            return new THREE.ShaderMaterial({
+                uniforms: {
+                    uMainColor: { value: new THREE.Color(shaderSettings.purpleColor) },
+                    uAccentColor: { value: new THREE.Color(shaderSettings.purpleAccent) },
+                    uGlow: { value: shaderSettings.purpleGlow },
+                    uContrast: { value: shaderSettings.purpleContrast },
+                    uOffset: { value: offset }
+                },
+                vertexShader: `
+                    varying vec3 vWorldPosition;
+                    varying vec3 vNormal;
+
+                    void main() {
+                        vNormal = normalize(normalMatrix * normal);
+                        vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                        vWorldPosition = worldPosition.xyz;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform vec3 uMainColor;
+                    uniform vec3 uAccentColor;
+                    uniform float uGlow;
+                    uniform float uContrast;
+                    uniform float uOffset;
+
+                    varying vec3 vWorldPosition;
+                    varying vec3 vNormal;
+
+                    void main() {
+                        float wave = sin((vWorldPosition.x + uOffset) * 0.045) + cos((vWorldPosition.y - uOffset) * 0.035);
+                        float bands = clamp(wave * 0.25 + 0.5, 0.0, 1.0);
+                        bands = pow(bands, uContrast);
+
+                        float rim = pow(1.0 - abs(vNormal.z), 2.0);
+                        vec3 color = mix(uMainColor, uAccentColor, bands);
+                        color *= 0.45 + (uGlow * 0.65) + (rim * uGlow * 0.45);
+
+                        gl_FragColor = vec4(color, 1.0);
+                    }
+                `
+            });
+        }
+
+        // Create a more comprehensive environment map for chrome reflections
+        function createEnvironmentMap() {
+            const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
+                format: THREE.RGBFormat,
+                generateMipmaps: true,
+                minFilter: THREE.LinearMipmapLinearFilter
+            });
+
+            const cubeCamera = new THREE.CubeCamera(0.1, 1000, cubeRenderTarget);
+
+            // Create a temporary scene with interesting geometry for reflections
+            const envScene = new THREE.Scene();
+
+            // Shader-driven purple geometry that shows up in the chrome reflections.
+            const sphereGeometry = new THREE.SphereGeometry(50, 32, 32);
+            const purpleMaterials = [];
+            const sphereMaterial = createPurpleEnvironmentMaterial(0);
+            purpleMaterials.push(sphereMaterial);
+            const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+            sphere.position.set(100, 0, 0);
+            envScene.add(sphere);
+
+            const sphere2Material = createPurpleEnvironmentMaterial(48);
+            purpleMaterials.push(sphere2Material);
+            const sphere2 = new THREE.Mesh(sphereGeometry, sphere2Material);
+            sphere2.position.set(-100, 0, 0);
+            envScene.add(sphere2);
+
+            const sphere3Material = createPurpleEnvironmentMaterial(96);
+            purpleMaterials.push(sphere3Material);
+            const sphere3 = new THREE.Mesh(sphereGeometry, sphere3Material);
+            sphere3.position.set(0, 100, 0);
+            envScene.add(sphere3);
+
+            const sphere4Material = createPurpleEnvironmentMaterial(144);
+            purpleMaterials.push(sphere4Material);
+            const sphere4 = new THREE.Mesh(sphereGeometry, sphere4Material);
+            sphere4.position.set(0, -100, 0);
+            envScene.add(sphere4);
+
+            purpleEnvironment = {
+                scene: envScene,
+                cubeCamera,
+                materials: purpleMaterials,
+                texture: cubeRenderTarget.texture
+            };
+
+            // Render the environment
+            cubeCamera.update(renderer, envScene);
+
+            return cubeRenderTarget.texture;
+        }
+
+        // Create fallback environment first
+        let envMap = createEnvironmentMap();
+        scene.environment = envMap;
+
+        // Using fallback environment only
+
+        // Lighting setup - soft diffused purple lights (doubled)
+        const ambientLight = new THREE.AmbientLight(0x9966ff, 0.8); // Much stronger ambient for diffusion
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0x9966ff, 0.6); // Softer directional
+        directionalLight.position.set(10, 10, 5);
+        scene.add(directionalLight);
+
+        // Add soft key lights for chrome reflections
+        const keyLight1 = new THREE.DirectionalLight(0x9966ff, 0.4); // Much softer
+        keyLight1.position.set(-10, 5, 10);
+        scene.add(keyLight1);
+
+        const keyLight2 = new THREE.DirectionalLight(0x9966ff, 0.3); // Much softer
+        keyLight2.position.set(5, -10, -5);
+        scene.add(keyLight2);
+
+        // Mirror lights - doubled amount
+        const directionalLight2 = new THREE.DirectionalLight(0x9966ff, 0.6); // Mirrored directional
+        directionalLight2.position.set(-10, -10, -5); // Mirror position
+        scene.add(directionalLight2);
+
+        const keyLight3 = new THREE.DirectionalLight(0x9966ff, 0.4); // Mirrored key light
+        keyLight3.position.set(10, -5, -10); // Mirror position
+        scene.add(keyLight3);
+
+        const keyLight4 = new THREE.DirectionalLight(0x9966ff, 0.3); // Mirrored key light
+        keyLight4.position.set(-5, 10, 5); // Mirror position
+        scene.add(keyLight4);
+
+        window.shaderControlledLights = [
+            { light: ambientLight, baseIntensity: 0.8 },
+            { light: directionalLight, baseIntensity: 0.6 },
+            { light: keyLight1, baseIntensity: 0.4 },
+            { light: keyLight2, baseIntensity: 0.3 },
+            { light: directionalLight2, baseIntensity: 0.6 },
+            { light: keyLight3, baseIntensity: 0.4 },
+            { light: keyLight4, baseIntensity: 0.3 }
+        ];
+
+        function formatShaderValue(name, value) {
+            if (['tint', 'purpleColor', 'purpleAccent'].includes(name)) return value;
+            if (['rotationAngle', 'rotationTravel'].includes(name)) return `${Math.round(Number(value))}deg`;
+            if (name === 'envMapIntensity') return Number(value).toFixed(1);
+            return Number(value).toFixed(2);
+        }
+
+        function updateShaderValueLabel(name) {
+            const valueLabel = document.querySelector(`[data-shader-value="${name}"]`);
+            if (valueLabel) {
+                valueLabel.textContent = formatShaderValue(name, shaderSettings[name]);
+            }
+        }
+
+        function formatPositionValue(value) {
+            return Number(value).toFixed(2);
+        }
+
+        function updatePositionValueLabel(name) {
+            const valueLabel = document.querySelector(`[data-position-value="${name}"]`);
+            if (valueLabel) {
+                valueLabel.textContent = formatPositionValue(positionSettings[name]);
+            }
+        }
+
+        function applyModelYPosition() {
+            if (window.galleryModelLocation) {
+                window.galleryModelLocation.y = positionSettings.modelY;
+            }
+
+            const isHome = window.currentActiveMode === null || typeof window.currentActiveMode === 'undefined';
+            if (window.currentModel && isHome) {
+                window.currentModel.position.y = positionSettings.modelY;
+            }
+        }
+
+        function updatePurpleEnvironment() {
+            if (!purpleEnvironment) return;
+
+            purpleEnvironment.materials.forEach(material => {
+                material.uniforms.uMainColor.value.set(shaderSettings.purpleColor);
+                material.uniforms.uAccentColor.value.set(shaderSettings.purpleAccent);
+                material.uniforms.uGlow.value = shaderSettings.purpleGlow;
+                material.uniforms.uContrast.value = shaderSettings.purpleContrast;
+            });
+
+            purpleEnvironment.cubeCamera.update(renderer, purpleEnvironment.scene);
+            scene.environment = purpleEnvironment.texture;
+        }
+
+        function applyModelRotationAngle() {
+            if (!window.currentModel || typeof window.modelCurrentAngle !== 'number') return;
+            const displayAngle = window.modelCurrentAngle + shaderSettings.rotationAngle;
+            window.currentModel.rotation.y = THREE.MathUtils.degToRad(displayAngle);
+        }
+
+        function applyRotationTravel() {
+            const center = 85;
+            const halfTravel = shaderSettings.rotationTravel / 2;
+            window.oscillationMin = center - halfTravel;
+            window.oscillationMax = center + halfTravel;
+
+            if (typeof window.modelCurrentAngle === 'number') {
+                window.modelCurrentAngle = Math.min(
+                    window.oscillationMax,
+                    Math.max(window.oscillationMin, window.modelCurrentAngle)
+                );
+            }
+        }
+
+        function applyShaderSettings() {
+            renderer.toneMappingExposure = shaderSettings.exposure;
+            window.oscillationSpeed = shaderSettings.spinSpeed;
+            applyRotationTravel();
+
+            window.shaderControlledLights.forEach(({ light, baseIntensity }) => {
+                light.color.set(shaderSettings.purpleColor);
+                light.intensity = baseIntensity * shaderSettings.lightStrength;
+            });
+
+            updatePurpleEnvironment();
+
+            if (window.chromeMaterial) {
+                window.chromeMaterial.color.set(shaderSettings.tint);
+                window.chromeMaterial.metalness = shaderSettings.metalness;
+                window.chromeMaterial.roughness = shaderSettings.roughness;
+                window.chromeMaterial.envMapIntensity = shaderSettings.envMapIntensity;
+                window.chromeMaterial.needsUpdate = true;
+            }
+
+            applyModelRotationAngle();
+        }
+
+        function resetPositionControls() {
+            Object.assign(positionSettings, defaultPositionSettings);
+
+            document.querySelectorAll('[data-position-setting]').forEach(input => {
+                const name = input.dataset.positionSetting;
+                input.value = positionSettings[name];
+                updatePositionValueLabel(name);
+            });
+
+            applyModelYPosition();
+        }
+
+        function updateShaderControlsVisibility() {
+            if (!shaderControls) return;
+            const isHome = window.currentActiveMode === null || typeof window.currentActiveMode === 'undefined';
+            shaderControls.classList.toggle('is-hidden', !isHome);
+        }
+
+        function initShaderControls() {
+            if (!shaderControls) return;
+
+            ['wheel', 'touchstart', 'touchmove', 'touchend', 'pointerdown', 'pointermove', 'pointerup'].forEach(eventName => {
+                shaderControls.addEventListener(eventName, event => {
+                    event.stopPropagation();
+                });
+            });
+
+            document.querySelectorAll('[data-position-setting]').forEach(input => {
+                const name = input.dataset.positionSetting;
+
+                input.addEventListener('input', () => {
+                    positionSettings[name] = Number(input.value);
+                    updatePositionValueLabel(name);
+                    applyModelYPosition();
+                });
+
+                updatePositionValueLabel(name);
+            });
+
+            if (shaderReset) {
+                shaderReset.addEventListener('click', resetPositionControls);
+            }
+
+            applyShaderSettings();
+            applyModelYPosition();
+            updateShaderControlsVisibility();
+        }
+
+        initShaderControls();
+
+        // Controls setup - locked position with custom controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = false;
+        controls.dampingFactor = 0.05;
+        controls.enableZoom = false; // Disable zoom
+        controls.enablePan = false; // Disable pan
+        controls.enableRotate = false; // Disable mouse rotation
+
+        // Custom scroll controls for fast spin
+        function onMouseWheel(event) {
+            // Completely ignore scroll when in any active mode, already doing fast spin, or in cooldown
+            if (window.currentActiveMode || window.isDoingFastSpin || window.fastSpinCooldown) {
+                return;
+            }
+
+            event.preventDefault();
+
+            // Start cooldown period
+            window.fastSpinCooldown = true;
+            setTimeout(() => {
+                window.fastSpinCooldown = false;
+            }, window.fastSpinCooldownTime);
+
+            // Store current position to return to after spin
+            window.fastSpinStartAngle = window.modelCurrentAngle;
+            window.fastSpinTargetAngle = window.modelCurrentAngle; // Return to same position
+            window.fastSpinCurrentRotation = 0;
+
+            if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+                // Trackpad/mouse horizontal scroll: right spins right, left spins left.
+                window.fastSpinDirection = event.deltaX > 0 ? -1 : 1;
+            } else {
+                // Vertical scroll fallback: scroll down spins left, scroll up spins right.
+                window.fastSpinDirection = event.deltaY > 0 ? -1 : 1;
+            }
+
+            // Start fast spin
+            window.isDoingFastSpin = true;
+            window.modelIsSpinning = false; // Stop oscillation during spin
+
+        }
+
+        // Add scroll event listener to window (works even with overflow:hidden)
+        window.addEventListener('wheel', onMouseWheel, { passive: false });
+        document.addEventListener('wheel', onMouseWheel, { passive: false });
+
+        // Touch support for mobile devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function onTouchStart(event) {
+            touchStartX = event.touches[0].clientX;
+        }
+
+        function onTouchEnd(event) {
+            touchEndX = event.changedTouches[0].clientX;
+            handleTouchSwipe();
+        }
+
+        function handleTouchSwipe() {
+            // Ignore touch when in any active mode, already doing fast spin, or in cooldown
+            if (window.currentActiveMode || window.isDoingFastSpin || window.fastSpinCooldown) {
+                return;
+            }
+
+            const swipeThreshold = 20;
+            const swipeDistance = touchEndX - touchStartX;
+
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                // Start cooldown period
+                window.fastSpinCooldown = true;
+                setTimeout(() => {
+                    window.fastSpinCooldown = false;
+                }, window.fastSpinCooldownTime);
+
+                // Store current position to return to after spin
+                window.fastSpinStartAngle = window.modelCurrentAngle;
+                window.fastSpinTargetAngle = window.modelCurrentAngle; // Return to same position
+                window.fastSpinCurrentRotation = 0;
+
+                if (swipeDistance > 0) {
+                    // Swipe right = rotate right 360 degrees
+                    window.fastSpinDirection = 1;
+                } else {
+                    // Swipe left = rotate left 360 degrees
+                    window.fastSpinDirection = -1;
+                }
+
+                // Start fast spin
+                window.isDoingFastSpin = true;
+                window.modelIsSpinning = false; // Stop oscillation during spin
+
+            }
+        }
+
+        // Add touch event listeners (same as wheel events for consistency)
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchend', onTouchEnd, { passive: true });
+        document.addEventListener('touchstart', onTouchStart, { passive: true });
+        document.addEventListener('touchend', onTouchEnd, { passive: true });
+
+        // Chrome material function - MAX GLOSSY
+        function createChromeMaterial() {
+            const material = new THREE.MeshStandardMaterial({
+                color: shaderSettings.tint,
+                metalness: shaderSettings.metalness,
+                roughness: shaderSettings.roughness, // Perfectly smooth - maximum gloss
+                envMapIntensity: shaderSettings.envMapIntensity, // Maximum reflection intensity
+                transparent: false,
+                opacity: 1.0
+                // envMap is handled automatically by scene.environment
+            });
+            window.chromeMaterial = material;
+            applyShaderSettings();
+            return material;
+        }
+
+        // Load the GLTF model
+        const loader = new THREE.GLTFLoader();
+        const loadingElement = document.getElementById('loading');
+
+        loader.load(
+            './model.gltf',
+            function (gltf) {
+
+                // Hide loading indicator
+                loadingElement.style.display = 'none';
+
+                // Add the model to the scene
+                const model = gltf.scene;
+
+                // Create chrome material
+                const chromeMaterial = createChromeMaterial();
+
+                // Apply chrome material
+                model.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.material = chromeMaterial;
+                    }
+                });
+
+                // Center the model
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                model.position.sub(center);
+
+                // Scale the model appropriately
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const scale = 2 / maxDim;
+                model.scale.setScalar(scale);
+
+                scene.add(model);
+
+                // Set initial rotation angle
+                model.rotation.y = Math.PI / 8; // 45 degrees - change this value to your desired starting angle
+
+                // Store model globally for scroll controls
+                window.currentModel = model;
+
+                // Position camera - zoomed out with different aspect ratio
+                const distance = maxDim * scale * 2.2; // Zoom
+                camera.position.set(distance * 1, distance * 0, distance * 0);
+
+                // Store original camera distance for reset functionality
+                window.originalCameraDistance = camera.position.length();
+
+                controls.target.set(0, 0, 0);
+                controls.update();
+
+                // Initialize model position tracking (0-359 degrees)
+                window.modelCurrentAngle = 85; // Start in middle of oscillation range (60-110)
+                window.modelTargetAngle = null;
+                window.modelIsSpinning = true;
+                window.modelSpinSpeed = 0.2; // degrees per frame (2x previous slow speed)
+
+                // Oscillation control variables
+                applyRotationTravel();
+                window.oscillationDirection = 1; // 1 for forward, -1 for backward
+                window.oscillationSpeed = shaderSettings.spinSpeed;  // Speed of oscillation (degrees per frame)
+
+                // Fast spin control variables
+                window.isDoingFastSpin = false;
+                window.fastSpinDirection = 1; // 1 for right (positive), -1 for left (negative)
+                window.fastSpinSpeed = 12; // degrees per frame (360 degrees / 12 = 30 frames at 60fps)
+                window.fastSpinStartAngle = 0; // where we started the spin
+                window.fastSpinTargetAngle = 0; // where we want to end up
+                window.fastSpinCurrentRotation = 0; // how much we've rotated so far
+                window.fastSpinCooldown = false; // prevent multiple spins
+                window.fastSpinCooldownTime = 1500; // 1.5 seconds cooldown
+
+                // Pause at turning points
+                window.oscillationPauseTime = 0;
+                window.oscillationPauseDuration = 15; // frames (0.25 seconds at 60fps)
+                window.oscillationIsPaused = false;
+
+                // Individual zoom levels for each menu item
+                window.galleryZoomDistance = 0.05;  // 20x zoom
+                window.contactZoomDistance = 2;  // 12.5x zoom
+                window.aboutZoomDistance = 0.5;     // 10x zoom
+
+                // Individual model positions for each menu item (X, Y, Z)
+                window.galleryModelLocation = { x: 0, y: positionSettings.modelY, z: 0 };      // Center
+                window.contactModelLocation = { x: 0, y: 1.8, z: 0 };     // Left side
+                window.aboutModelLocation = { x: 10, y: 0, z: 0 };        // Further left
+
+                // Track current active mode
+                window.currentActiveMode = null; // 'gallery', 'contact', 'about', or null
+                applyModelYPosition();
+                applyInitialRoute();
+
+                // Model animation will be handled in main animate() loop
+            },
+            undefined,
+            function () {
+                loadingElement.innerHTML = `<div class="error">B'Wig'd is taking a moment to load.<br>Please refresh or contact info@bwigd.com.au.</div>`;
+            }
+        );
+
+        function updateFastSpin() {
+            if (!window.isDoingFastSpin || !window.currentModel) return;
+
+            const remainingRotation = 360 - window.fastSpinCurrentRotation;
+            const landingZone = 120;
+            let speedMultiplier = 1;
+
+            if (remainingRotation < landingZone) {
+                const landingProgress = 1 - (remainingRotation / landingZone);
+                const smoothedProgress = landingProgress * landingProgress * (3 - 2 * landingProgress);
+                speedMultiplier = 1 - (smoothedProgress * 0.82);
+            }
+
+            // Ease into the landing and avoid overshooting the exact full rotation.
+            const rotationStep = Math.min(window.fastSpinSpeed * speedMultiplier, remainingRotation);
+            const spinAmount = window.fastSpinDirection * rotationStep;
+            window.modelCurrentAngle += spinAmount;
+            window.fastSpinCurrentRotation += Math.abs(spinAmount);
+
+            // Check if we've completed 360 degrees
+            if (window.fastSpinCurrentRotation >= 360) {
+                // Snap back to target position
+                window.modelCurrentAngle = window.fastSpinTargetAngle;
+                window.isDoingFastSpin = false;
+
+                // Resume oscillation for all modes
+                window.modelIsSpinning = true; // Resume oscillation
+                window.modelTargetAngle = null; // Clear any target
+
+                // Set oscillation direction to match the spin direction for smooth continuation
+                window.oscillationDirection = window.fastSpinDirection;
+
+            }
+
+            // Keep angle in 0-360 range
+            if (window.modelCurrentAngle < 0) {
+                window.modelCurrentAngle += 360;
+            } else if (window.modelCurrentAngle >= 360) {
+                window.modelCurrentAngle -= 360;
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            updateFastSpin(); // Handle fast spin logic
+
+            // Model animation with oscillating rotation system
+            if (window.currentModel) {
+                // ONLY do fast spin - skip all other rotation logic
+                if (window.isDoingFastSpin) {
+                    // Fast spin is handled by updateFastSpin() - just apply the rotation, don't do any other logic
+                    applyModelRotationAngle();
+                } else if (window.modelIsSpinning) {
+                    // Oscillation for all modes (HOME, CONTACT, etc.)
+                    // Check if we're currently paused at a turning point
+                    if (window.oscillationIsPaused) {
+                        window.oscillationPauseTime++;
+
+                        if (window.oscillationPauseTime >= window.oscillationPauseDuration) {
+                            // End pause and resume movement
+                            window.oscillationIsPaused = false;
+                            window.oscillationPauseTime = 0;
+                        }
+
+                        // Don't move during pause - just apply current rotation
+                        applyModelRotationAngle();
+                        return; // Skip movement logic
+                    }
+
+                    // Pendulum-like oscillation with a more pronounced ease near each apex.
+                    const oscillationRange = window.oscillationMax - window.oscillationMin;
+                    const oscillationCenter = (window.oscillationMax + window.oscillationMin) / 2;
+
+                    // Calculate position within the oscillation range (-1 to 1, where 0 is center)
+                    const normalizedPosition = ((window.modelCurrentAngle - oscillationCenter) / (oscillationRange / 2));
+
+                    // Keep easing closer to the apex so the motion does not drag too hard out of turns.
+                    const easingZone = 0.7; // Ease in the outer 30% of each side
+
+                    let speedMultiplier = 1.0; // Default full speed
+
+                    // Only apply easing if we're in the outer zones
+                    if (Math.abs(normalizedPosition) > easingZone) {
+                        const distanceIntoEasingZone = (Math.abs(normalizedPosition) - easingZone) / (1.0 - easingZone);
+                        speedMultiplier = Math.max(0.0, 1.0 - (distanceIntoEasingZone * 0.8));
+                    }
+
+                    // Keep the oscillation measured so the stronger easing has room to read.
+                    const boostedSpeed = window.oscillationSpeed * 1.8;
+                    const currentSpeed = boostedSpeed * speedMultiplier;
+
+                    window.modelCurrentAngle += window.oscillationDirection * currentSpeed;
+
+                    // Check boundaries and reverse direction
+                    if (window.modelCurrentAngle >= window.oscillationMax) {
+                        window.modelCurrentAngle = window.oscillationMax;
+                        window.oscillationDirection = -1;
+                        // Start pause at turning point
+                        window.oscillationIsPaused = true;
+                        window.oscillationPauseTime = 0;
+                    } else if (window.modelCurrentAngle <= window.oscillationMin) {
+                        window.modelCurrentAngle = window.oscillationMin;
+                        window.oscillationDirection = 1;
+                        // Start pause at turning point
+                        window.oscillationIsPaused = true;
+                        window.oscillationPauseTime = 0;
+                    }
+
+                    // Keep angle in 0-360 range
+                    if (window.modelCurrentAngle < 0) {
+                        window.modelCurrentAngle += 360;
+                    } else if (window.modelCurrentAngle >= 360) {
+                        window.modelCurrentAngle -= 360;
+                    }
+
+                    // Apply rotation to model
+                    applyModelRotationAngle();
+                }
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize
+        let resizeAnimationFrame = null;
+
+        function onWindowResize() {
+            resizeAnimationFrame = null;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobileViewport() ? 1 : 1.5));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        window.addEventListener('resize', function () {
+            if (resizeAnimationFrame) return;
+            resizeAnimationFrame = requestAnimationFrame(onWindowResize);
+        });
+
+        // Start animation
+        animate();
+
+        // Responsive menu function
+        function updateMenu() {
+            const menu = document.querySelector('.menu');
+            const isMobile = window.innerWidth <= 900;
+
+            if (isMobile) {
+                menu.innerHTML = `
+                    <div class="menu-item" data-bwigd="true" role="button" tabindex="0">HOME</div>
+                    <div class="menu-item" role="button" tabindex="0">MENU</div>
+                `;
+            } else {
+                menu.innerHTML = `
+                    <div class="menu-item" data-bwigd="true" role="button" tabindex="0">HOME</div>
+                    <div class="menu-item" role="button" tabindex="0">GALLERY</div>
+                    <div class="menu-item" role="button" tabindex="0">CONTACT</div>
+                    <div class="menu-item" role="button" tabindex="0">ABOUT</div>
+                `;
+            }
+
+            // Restore active state based on current mode
+            if (window.currentActiveMode) {
+                // Set the active mode item as highlighted
+                const activeItem = Array.from(menu.querySelectorAll('.menu-item')).find(item =>
+                    item.textContent === window.currentActiveMode.toUpperCase()
+                );
+                if (activeItem) {
+                    activeItem.classList.add('active');
+                }
+            } else {
+                // Set HOME as active item if no active mode
+                const homeItem = menu.querySelector('.menu-item');
+                if (homeItem && homeItem.textContent === "HOME") {
+                    homeItem.classList.add('active');
+                }
+            }
+        }
+
+        // Update menu on load and resize
+        updateMenu();
+        window.addEventListener('resize', updateMenu);
+
+        document.addEventListener('keydown', function (e) {
+            const isMenuControl = e.target.classList.contains('menu-item') || e.target.classList.contains('menu-overlay-item');
+            if (!isMenuControl || (e.key !== 'Enter' && e.key !== ' ')) {
+                return;
+            }
+
+            e.preventDefault();
+            e.target.click();
+        });
+
+        // Close dropdown menu when screen becomes 900px or wider
+        window.addEventListener('resize', function () {
+            if (window.innerWidth >= 900 && isMenuOpen) {
+                // Close the dropdown menu directly
+                const menuOverlay = document.getElementById('menuOverlay');
+
+                if (menuOverlay) {
+                    menuOverlay.classList.remove('active');
+                    isMenuOpen = false;
+                }
+            }
+        });
+
+        // Set HOME as default active item on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const homeItem = document.querySelector('.menu-item');
+            if (homeItem && homeItem.textContent === "HOME") {
+                homeItem.classList.add('active-no-hover');
+            }
+        });
+
+        // Menu toggle functionality with animations
+        let isMenuOpen = false;
+
+        // Helper function to get animation timeout based on screen size
+        function getAnimationTimeout() {
+            return window.innerWidth <= 900 ? 300 : 400;
+        }
+
+        // Helper function to get slide-out timeout (when text should change)
+        function getSlideOutTimeout() {
+            return window.innerWidth <= 900 ? 300 : 400;
+        }
+
+        function toggleMenu() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const menuItem = Array.from(menuItems).find(item =>
+                item.textContent === 'MENU' || item.textContent === 'CLOSE'
+            );
+            const menuOverlay = document.getElementById('menuOverlay');
+            const isMobile = window.innerWidth <= 900;
+
+            if (menuItem) {
+                if (isMenuOpen) {
+                    // Close menu - hide overlay and change text
+                    menuOverlay.classList.remove('active');
+                    menuItem.textContent = 'MENU';
+                    menuItem.className = 'menu-item slide-in-right';
+                    menuItem.removeAttribute('data-special');
+                    isMenuOpen = false;
+
+                } else {
+                    // Open menu - show overlay and change text
+                    menuOverlay.classList.add('active');
+                    menuItem.textContent = 'CLOSE';
+                    menuItem.className = 'menu-item slide-in-right';
+                    menuItem.setAttribute('data-special', 'close');
+                    isMenuOpen = true;
+
+                }
+
+                // Always add animation cleanup
+                setTimeout(() => {
+                    menuItem.className = 'menu-item';
+                }, getAnimationTimeout());
+            }
+        }
+
+        // Function to create contact text
+        function createContactText() {
+            const contactContent = document.getElementById('contactContent');
+
+            // Clear existing content
+            contactContent.innerHTML = '';
+
+            // Create main centered text
+            const textElement = document.createElement('div');
+            textElement.className = 'contact-text';
+            textElement.textContent = 'CONTACT BRIDGET';
+            contactContent.appendChild(textElement);
+
+            // Create left corner text (phone) - desktop only
+            const leftCorner = document.createElement('div');
+            leftCorner.className = 'contact-corner-text left';
+            leftCorner.textContent = '0413080144';
+            leftCorner.addEventListener('click', function () {
+                window.open('tel:0413080144', '_self');
+            });
+            contactContent.appendChild(leftCorner);
+
+            // Create right corner text (email) - desktop only
+            const rightCorner = document.createElement('div');
+            rightCorner.className = 'contact-corner-text right';
+            rightCorner.textContent = 'info@bwigd.com.au';
+            rightCorner.addEventListener('click', function () {
+                window.open('mailto:info@bwigd.com.au', '_blank');
+            });
+            contactContent.appendChild(rightCorner);
+
+            // Mobile contact info - under Contact Bridget, phone first then email, center aligned
+            const contactInfoMobile = document.createElement('div');
+            contactInfoMobile.className = 'contact-info-mobile';
+            const phoneMobile = document.createElement('div');
+            phoneMobile.className = 'contact-info-mobile-item';
+            phoneMobile.textContent = '0413080144';
+            phoneMobile.addEventListener('click', function () {
+                window.open('tel:0413080144', '_self');
+            });
+            const emailMobile = document.createElement('div');
+            emailMobile.className = 'contact-info-mobile-item';
+            emailMobile.textContent = 'info@bwigd.com.au';
+            emailMobile.addEventListener('click', function () {
+                window.open('mailto:info@bwigd.com.au', '_blank');
+            });
+            contactInfoMobile.appendChild(phoneMobile);
+            contactInfoMobile.appendChild(emailMobile);
+            contactContent.appendChild(contactInfoMobile);
+        }
+
+        // Function to create about text
+        function createAboutText() {
+            const aboutContent = document.getElementById('aboutContent');
+
+            // Clear existing content
+            aboutContent.innerHTML = '';
+
+            // Reset scroll position to top
+            aboutContent.scrollTop = 0;
+
+            // Create about text container
+            const textElement = document.createElement('div');
+            textElement.className = 'about-text';
+
+            // Add the about content
+            textElement.innerHTML = `
+                
+                <br>
+                <p>We provide wigs for medical and fashion in the Sydney region. We carry a wide range of styles, colours and accessories and offer both synthetic and human hair options.</p>
+                
+                <p>As a mobile service, we will do everything to meet your needs in the comfort of your own home and at a time that is convenient for you. Simply call or email to organise an appointment.</p>
+                
+                <p>We pride ourselves on customer care. Our consultations are cost and obligation free.</p>
+                
+                <p>Any customisation or maintenance of your wig comes at no extra cost - we strive to ensure excellent customer service and satisfaction for all of our clients.</p>
+                
+                <p>Rest assured that after consultation you will have all the knowledge to care for, style and maintain your wig.</p>
+                <br>
+                <br>
+                <img src="bwigd-text.svg" width="100%" height="auto">
+                <br>
+                <br>
+                <br>
+                
+            `;
+
+            aboutContent.appendChild(textElement);
+
+            // Ensure scroll position is at top after content is added
+            setTimeout(() => {
+                aboutContent.scrollTop = 0;
+                // Remove any blur since we're starting at top
+                const menu = document.querySelector('.menu');
+                const menuBlur = document.querySelector('.menu-blur');
+                if (menuBlur) {
+                    menuBlur.style.display = 'none';
+                }
+            }, 10);
+        }
+
+        // Function to create gallery grid
+        function createGalleryGrid() {
+            const galleryContent = document.getElementById('galleryContent');
+            window.galleryLoadSequenceId = (window.galleryLoadSequenceId || 0) + 1;
+            const loadSequenceId = window.galleryLoadSequenceId;
+
+            // All images from gallery folder structure
+            const galleryImages = [
+                // Heat Defiant Wigs (HDW)
+                "gallery/B'Wig'd Images/Heat Defiant Wigs (HDW)/HDW1.webp",
+                "gallery/B'Wig'd Images/Heat Defiant Wigs (HDW)/HDW2.webp",
+                "gallery/B'Wig'd Images/Heat Defiant Wigs (HDW)/HDW3.webp",
+                "gallery/B'Wig'd Images/Heat Defiant Wigs (HDW)/HDW4.webp",
+                "gallery/B'Wig'd Images/Heat Defiant Wigs (HDW)/HDW5.webp",
+                "gallery/B'Wig'd Images/Heat Defiant Wigs (HDW)/HDW6.webp",
+                "gallery/B'Wig'd Images/Heat Defiant Wigs (HDW)/HDW7.webp",
+                // Human Hair Wigs (HHW)
+                "gallery/B'Wig'd Images/Human Hair Wigs (HHW)/HHW1.webp",
+                "gallery/B'Wig'd Images/Human Hair Wigs (HHW)/HHW2.webp",
+                "gallery/B'Wig'd Images/Human Hair Wigs (HHW)/HHW3.webp",
+                "gallery/B'Wig'd Images/Human Hair Wigs (HHW)/HHW4.webp",
+                "gallery/B'Wig'd Images/Human Hair Wigs (HHW)/HHW5.webp",
+                "gallery/B'Wig'd Images/Human Hair Wigs (HHW)/HHW6.webp",
+                "gallery/B'Wig'd Images/Human Hair Wigs (HHW)/HHW7.webp",
+                // Synthetic Wigs (SW)
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW1.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW2.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW3.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW4.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW5.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW6.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW7.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW8.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW9.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW10.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW11.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW12.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW13.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW14.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW15.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW16.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW17.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW18.webp",
+                "gallery/B'Wig'd Images/Synthetic Wigs (SW)/SW19.webp"
+            ];
+
+            const gridElement = document.createElement('div');
+            gridElement.className = 'gallery-grid';
+            const imageElements = [];
+            const blackGalleryTitles = new Set([
+                'HDW1',
+                'HDW2',
+                'HDW4',
+                'HDW5',
+                'HDW6',
+                'HDW7',
+                'HHW2',
+                'HHW4',
+                'HHW5',
+                'HHW7',
+                'SW1',
+                'SW4',
+                'SW5',
+                'SW6',
+                'SW8',
+                'SW9',
+                'SW10',
+                'SW13',
+                'SW15',
+                'SW16',
+                'SW18',
+                'SW19'
+            ]);
+
+            galleryImages.forEach((imageSrc, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'gallery-item';
+
+                const imgElement = document.createElement('img');
+                imgElement.decoding = 'async';
+                imgElement.dataset.galleryIndex = index;
+                imageElements.push(imgElement);
+
+                // Extract category and ID from path
+                // Path format: "gallery/B'Wig'd Images/Heat Defiant Wigs (HDW)/HDW1.webp"
+                const pathParts = imageSrc.split('/');
+                const categoryFolder = pathParts[pathParts.length - 2]; // "Heat Defiant Wigs (HDW)"
+                const filename = pathParts[pathParts.length - 1]; // "HDW1.webp"
+
+                // Remove "(HDW)" from category folder name
+                const category = categoryFolder.replace(/\s*\([^)]*\)\s*$/, ''); // "Heat Defiant Wigs"
+                const wigId = filename.replace(/\.[^/.]+$/, ''); // "HDW1"
+
+                // Keep gallery captions compact so they do not fight the photos.
+                const displayText = `${category} · ${wigId}`;
+                imgElement.alt = `${category} wig ${wigId}`;
+
+                // Create centered overlay for hover (desktop)
+                const hoverOverlay = document.createElement('div');
+                hoverOverlay.className = 'gallery-item-id-overlay';
+                hoverOverlay.textContent = displayText;
+
+                // Create bottom overlay for mobile (permanent)
+                const bottomOverlay = document.createElement('div');
+                bottomOverlay.className = 'gallery-item-id-bottom';
+                bottomOverlay.textContent = displayText;
+
+                if (blackGalleryTitles.has(wigId)) {
+                    hoverOverlay.classList.add('gallery-item-title-black');
+                    bottomOverlay.classList.add('gallery-item-title-black');
+                }
+
+                itemElement.appendChild(imgElement);
+                itemElement.appendChild(hoverOverlay);
+                itemElement.appendChild(bottomOverlay);
+                gridElement.appendChild(itemElement);
+            });
+
+            galleryContent.innerHTML = '';
+            galleryContent.appendChild(gridElement);
+
+            // Reset scroll position to top
+            galleryContent.scrollTop = 0;
+
+            // Add scroll listener for menu blur effect
+            setupMenuBlurEffect(galleryContent);
+
+            loadGalleryImagesSequentially(galleryImages, imageElements, loadSequenceId);
+        }
+
+        const galleryImageFadeDuration = 500;
+
+        // Load one gallery image at a time so each photo can fade in before the next starts.
+        async function loadGalleryImagesSequentially(galleryImages, imageElements, loadSequenceId) {
+            for (let i = 0; i < galleryImages.length; i++) {
+                if (window.currentActiveMode !== 'gallery' || window.galleryLoadSequenceId !== loadSequenceId) {
+                    return;
+                }
+
+                await loadGalleryImage(galleryImages[i], imageElements[i], loadSequenceId);
+            }
+        }
+
+        function loadGalleryImage(imageSrc, imgElement, loadSequenceId) {
+            return new Promise(resolve => {
+                const preloader = new Image();
+
+                const finish = loaded => {
+                    if (window.currentActiveMode === 'gallery' && window.galleryLoadSequenceId === loadSequenceId) {
+                        imgElement.src = imageSrc;
+                        if (loaded) {
+                            requestAnimationFrame(() => {
+                                imgElement.classList.add('gallery-image-loaded');
+                                setTimeout(resolve, galleryImageFadeDuration);
+                            });
+                            return;
+                        }
+                    }
+                    resolve();
+                };
+
+                preloader.onload = () => finish(true);
+                preloader.onerror = () => finish(false);
+                preloader.src = imageSrc;
+            });
+        }
+
+        // Function to setup menu blur effect when scrolling
+        function setupMenuBlurEffect(galleryContent) {
+            const menuBlur = document.querySelector('.menu-blur');
+
+            galleryContent.addEventListener('scroll', () => {
+                // Only add blur if gallery is still active
+                if (window.currentActiveMode !== 'gallery') {
+                    if (menuBlur) {
+                        menuBlur.style.display = 'none';
+                    }
+                    return;
+                }
+
+                const scrollTop = galleryContent.scrollTop;
+
+                // If scrolled past the initial padding (60px), show menu blur
+                if (scrollTop > 0) {
+                    if (menuBlur) {
+                        menuBlur.style.display = 'block';
+                    }
+                } else {
+                    if (menuBlur) {
+                        menuBlur.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Function to set active menu item (white text)
+        function setActiveMenuItem(menuText) {
+            // Remove active class from all menu items
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to the specified menu item
+            const targetItem = Array.from(menuItems).find(item => item.textContent === menuText);
+            if (targetItem) {
+                targetItem.classList.add('active');
+            }
+
+            updateShaderControlsVisibility();
+        }
+
+        // Function to clear active menu item (normal text)
+        function clearActiveMenuItem() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            updateShaderControlsVisibility();
+        }
+
+        // Function to prevent scrolling on HOME and CONTACT pages
+        function preventScrolling(event) {
+            if (window.currentActiveMode === null || window.currentActiveMode === 'contact') {
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+        }
+
+        // Add scroll prevention listeners
+        window.addEventListener('wheel', preventScrolling, { passive: false });
+        window.addEventListener('touchmove', preventScrolling, { passive: false });
+        window.addEventListener('scroll', preventScrolling, { passive: false });
+
+        const routePaths = {
+            home: '/',
+            gallery: '/gallery',
+            contact: '/contact',
+            about: '/about'
+        };
+
+        function getModeFromPath(pathname = window.location.pathname) {
+            const path = pathname.replace(/\/+$/, '') || '/';
+
+            if (path === routePaths.gallery) return 'gallery';
+            if (path === routePaths.contact) return 'contact';
+            if (path === routePaths.about) return 'about';
+            return null;
+        }
+
+        function updateRouteForMode(mode, replace = false) {
+            const path = routePaths[mode || 'home'];
+            if (!path || window.location.pathname === path) return;
+
+            const method = replace ? 'replaceState' : 'pushState';
+            window.history[method]({ mode }, '', path);
+        }
+
+        function getRouteSettleDuration(mode) {
+            if (mode === 'gallery') return 700;
+            if (mode === 'contact' || mode === 'about') return 600;
+            return 500;
+        }
+
+        function showRouteSettleCover() {
+            const routeSettleCover = document.getElementById('routeSettleCover');
+            if (routeSettleCover) {
+                routeSettleCover.classList.add('active');
+            }
+        }
+
+        function hideRouteSettleCover() {
+            document.documentElement.classList.remove('route-settling');
+
+            const routeSettleCover = document.getElementById('routeSettleCover');
+            if (routeSettleCover) {
+                routeSettleCover.classList.remove('active');
+            }
+        }
+
+        function activateRouteMode(mode, replace = false) {
+            window.isApplyingRoute = true;
+
+            if (mode === 'gallery') {
+                const contactOverlay = document.getElementById('contactOverlay');
+                const aboutOverlay = document.getElementById('aboutOverlay');
+                contactOverlay.classList.remove('active');
+                aboutOverlay.classList.remove('active');
+
+                const menuBlur = document.querySelector('.menu-blur');
+                if (menuBlur) {
+                    menuBlur.style.display = 'none';
+                }
+
+                const previousMode = window.currentActiveMode;
+                if (previousMode === 'about') {
+                    setModelInvisible();
+                }
+
+                activateGallery();
+                zoomCameraOutToInvisible();
+            } else if (mode === 'contact') {
+                const galleryOverlay = document.getElementById('galleryOverlay');
+                const aboutOverlay = document.getElementById('aboutOverlay');
+                galleryOverlay.classList.remove('active');
+                aboutOverlay.classList.remove('active');
+                document.body.classList.remove('gallery-active');
+
+                const menuBlur = document.querySelector('.menu-blur');
+                const menu = document.querySelector('.menu');
+                if (menuBlur) {
+                    menuBlur.style.display = 'none';
+                }
+                if (menu) {
+                    menu.classList.remove('blur-active');
+                }
+
+                window.currentActiveMode = 'contact';
+                setActiveMenuItem('CONTACT');
+
+                window.fastSpinStartAngle = window.modelCurrentAngle;
+                window.fastSpinTargetAngle = window.modelCurrentAngle;
+                window.fastSpinCurrentRotation = 0;
+                window.fastSpinDirection = 1;
+                window.isDoingFastSpin = true;
+                window.modelIsSpinning = false;
+
+                zoomCameraTo(window.contactZoomDistance);
+                fadeInFromGallery();
+                animateModelPosition(window.contactModelLocation, 1000);
+
+                const contactOverlay = document.getElementById('contactOverlay');
+                contactOverlay.classList.add('active');
+                createContactText();
+            } else if (mode === 'about') {
+                const previousMode = window.currentActiveMode;
+                const galleryOverlay = document.getElementById('galleryOverlay');
+                const contactOverlay = document.getElementById('contactOverlay');
+                galleryOverlay.classList.remove('active');
+                contactOverlay.classList.remove('active');
+                document.body.classList.remove('gallery-active');
+
+                const menuBlur = document.querySelector('.menu-blur');
+                const menu = document.querySelector('.menu');
+                if (menuBlur) {
+                    menuBlur.style.display = 'none';
+                }
+                if (menu) {
+                    menu.classList.remove('blur-active');
+                }
+
+                window.currentActiveMode = 'about';
+                setActiveMenuItem('ABOUT');
+
+                if (previousMode === 'gallery') {
+                    setModelInvisible();
+                } else {
+                    fadeInFromGallery();
+                }
+
+                animateModelPosition(window.aboutModelLocation, 1000);
+                zoomCameraTo(window.aboutZoomDistance);
+
+                const aboutOverlay = document.getElementById('aboutOverlay');
+                aboutOverlay.classList.add('active');
+                createAboutText();
+            } else {
+                resetCameraToOriginal();
+            }
+
+            updateRouteForMode(mode, replace);
+            window.isApplyingRoute = false;
+        }
+
+        function activateRouteModeWithCover(mode, replace = false) {
+            const settleDuration = getRouteSettleDuration(mode);
+            if (settleDuration > 0) {
+                showRouteSettleCover();
+            }
+
+            activateRouteMode(mode, replace);
+
+            if (settleDuration > 0) {
+                window.clearTimeout(window.routeSettleCoverTimeout);
+                window.routeSettleCoverTimeout = window.setTimeout(hideRouteSettleCover, settleDuration);
+            }
+        }
+
+        function applyInitialRoute() {
+            if (window.hasAppliedInitialRoute) return;
+            window.hasAppliedInitialRoute = true;
+            activateRouteModeWithCover(getModeFromPath(), true);
+        }
+
+        // Function to activate gallery mode
+        function activateGallery() {
+            window.currentActiveMode = 'gallery';
+            setActiveMenuItem('GALLERY');
+
+            // Add gallery-active class to body for green menu styling
+            document.body.classList.add('gallery-active');
+
+            // Show gallery overlay and create grid
+            const galleryOverlay = document.getElementById('galleryOverlay');
+            const galleryContent = document.getElementById('galleryContent');
+            galleryOverlay.classList.add('active');
+            createGalleryGrid();
+
+            // Always start gallery at the top (reset scroll position)
+            if (galleryContent) {
+                galleryContent.scrollTop = 0;
+            }
+
+        }
+
+        // Function to zoom camera out until model is invisible
+        function zoomCameraOutToInvisible() {
+            if (camera) {
+                // Cancel any ongoing camera animations
+                window.currentCameraAnimation = 'gallery-out';
+
+                // Calculate target position very far away (zoom out until invisible)
+                const currentDirection = camera.position.clone().normalize();
+                const invisibleZoomDistance = window.originalCameraDistance * 50; // 50x zoom out
+                const targetPosition = currentDirection.multiplyScalar(invisibleZoomDistance);
+
+                // Animate camera zoom out
+                const startPosition = camera.position.clone();
+                const duration = 2000; // 2 seconds for dramatic effect
+                const startTime = Date.now();
+
+                function animateCameraOut() {
+                    // Check if this animation should continue
+                    if (window.currentCameraAnimation !== 'gallery-out') {
+                        return; // Stop this animation
+                    }
+
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Ease out animation
+                    const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+                    camera.position.lerpVectors(startPosition, targetPosition, easeProgress);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateCameraOut);
+                    }
+                }
+
+                animateCameraOut();
+            }
+        }
+
+        // Function to animate model position smoothly
+        function animateModelPosition(targetLocation, duration = 1000) {
+            if (!window.currentModel) return;
+
+            const startPosition = window.currentModel.position.clone();
+            const targetPosition = new THREE.Vector3(targetLocation.x, targetLocation.y, targetLocation.z);
+            const startTime = Date.now();
+
+            function animatePosition() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Ease out animation
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+                window.currentModel.position.lerpVectors(startPosition, targetPosition, easeProgress);
+
+                if (progress < 1) {
+                    requestAnimationFrame(animatePosition);
+                }
+            }
+
+            animatePosition();
+        }
+
+        // Helper function to set model opacity to 0
+        function setModelInvisible() {
+            if (window.currentModel) {
+                window.currentModel.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.material.transparent = true;
+                        child.material.opacity = 0;
+                    }
+                });
+            }
+        }
+
+        // Helper function to fade in model from gallery
+        function fadeInFromGallery() {
+            if (!window.currentModel) return;
+
+            let isCurrentlyInvisible = false;
+            window.currentModel.traverse(function (child) {
+                if (child.isMesh && child.material.opacity === 0) {
+                    isCurrentlyInvisible = true;
+                }
+            });
+
+            if (isCurrentlyInvisible) {
+                const startTime = Date.now();
+                const duration = 200;
+
+                function fadeInModel() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const opacity = progress;
+
+                    window.currentModel.traverse(function (child) {
+                        if (child.isMesh) {
+                            child.material.transparent = true;
+                            child.material.opacity = opacity;
+                        }
+                    });
+
+                    if (progress < 1) {
+                        requestAnimationFrame(fadeInModel);
+                    }
+                }
+
+                fadeInModel();
+            } else {
+                window.currentModel.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.material.transparent = true;
+                        child.material.opacity = 1.0;
+                    }
+                });
+            }
+        }
+
+        // Function to zoom camera with specific zoom level
+        function zoomCameraTo(zoomLevel) {
+            // Access the Three.js camera
+            if (camera) {
+                // Cancel any ongoing camera animations
+                window.currentCameraAnimation = 'zoom-to';
+
+                // Calculate target position at specified zoom level
+                const currentDirection = camera.position.clone().normalize();
+                const zoomDistance = window.originalCameraDistance * zoomLevel;
+                const targetPosition = currentDirection.multiplyScalar(zoomDistance);
+
+                // Animate camera zoom
+                const startPosition = camera.position.clone();
+                const duration = 1000; // 1 second
+                const startTime = Date.now();
+
+                function animateCamera() {
+                    // Check if this animation should continue
+                    if (window.currentCameraAnimation !== 'zoom-to') {
+                        return; // Stop this animation
+                    }
+
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Ease out animation
+                    const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+                    camera.position.lerpVectors(startPosition, targetPosition, easeProgress);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateCamera);
+                    }
+                }
+
+                animateCamera();
+            }
+        }
+
+        // Function to reset camera to original zoom level
+        function resetCameraToOriginal() {
+
+            if (camera && window.originalCameraDistance) {
+                // Cancel any ongoing camera animations
+                window.currentCameraAnimation = 'reset';
+
+                // Calculate target position at original distance
+                const currentDirection = camera.position.clone().normalize();
+                const targetPosition = currentDirection.multiplyScalar(window.originalCameraDistance);
+
+                // Animate camera back to original zoom level
+                const startPosition = camera.position.clone();
+                const duration = 1000; // 1 second
+                const startTime = Date.now();
+
+                function animateCameraReset() {
+                    // Check if this animation should continue
+                    if (window.currentCameraAnimation !== 'reset') {
+                        return; // Stop this animation
+                    }
+
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Ease out animation
+                    const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+                    camera.position.lerpVectors(startPosition, targetPosition, easeProgress);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateCameraReset);
+                    }
+                }
+
+                animateCameraReset();
+            }
+
+            // Resume normal spinning with the current 2x speed
+            window.modelTargetAngle = null; // Clear any target position
+            window.modelIsSpinning = true; // Resume normal spinning
+            window.modelSpinSpeed = 0.2; // Keep aligned with the 2x slow spin setting
+            window.currentActiveMode = null; // Clear active mode
+
+            // Clear active menu item (normal text)
+            clearActiveMenuItem();
+
+            // Immediately make model visible to override any ongoing fade animations
+            if (window.currentModel) {
+                window.currentModel.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.material.transparent = true;
+                        child.material.opacity = 1.0; // Force full opacity
+                    }
+                });
+            }
+
+            // Reset model position back to center
+            animateModelPosition(window.galleryModelLocation, 1000);
+
+            // Hide all overlays when resetting to main view
+            const galleryOverlay = document.getElementById('galleryOverlay');
+            const contactOverlay = document.getElementById('contactOverlay');
+            const aboutOverlay = document.getElementById('aboutOverlay');
+            galleryOverlay.classList.remove('active');
+            contactOverlay.classList.remove('active');
+            aboutOverlay.classList.remove('active');
+
+            // Remove gallery-active class for normal menu styling
+            document.body.classList.remove('gallery-active');
+
+            // Turn off menu blur when closing gallery
+            const menuBlur = document.querySelector('.menu-blur');
+            const menu = document.querySelector('.menu');
+            if (menuBlur) {
+                menuBlur.style.display = 'none';
+            }
+            if (menu) {
+                menu.classList.remove('blur-active');
+                menu.classList.remove('about-active');
+            }
+
+            // Fade model back in to full visibility ONLY if coming from gallery (visibility is 0)
+            if (window.currentModel) {
+                // Check if model is currently invisible (opacity 0) - means we're coming from gallery
+                let isCurrentlyInvisible = false;
+                window.currentModel.traverse(function (child) {
+                    if (child.isMesh && child.material.opacity === 0) {
+                        isCurrentlyInvisible = true;
+                    }
+                });
+
+                // Only fade in if model is currently invisible
+                if (isCurrentlyInvisible) {
+                    // Don't reset model position - let the reset function handle positioning
+                    // The model will fade in at its current position
+
+                    window.currentModel.traverse(function (child) {
+                        if (child.isMesh) {
+                            child.material.transparent = true;
+                            child.material.opacity = 0.0; // Start at 0 opacity
+                        }
+                    });
+
+                    // Animate opacity back to 1 very quickly
+                    const startTime = Date.now();
+                    const duration = 200; // 0.2 seconds fade in - very quick
+
+                    function fadeInModel() {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const opacity = progress; // Fade from 0 to 1
+
+                        window.currentModel.traverse(function (child) {
+                            if (child.isMesh) {
+                                child.material.opacity = opacity;
+                            }
+                        });
+
+                        if (progress < 1) {
+                            requestAnimationFrame(fadeInModel);
+                        }
+                    }
+
+                    fadeInModel();
+                } else {
+                }
+            }
+
+        }
+
+
+        // Add click event listener to menu items - MOBILE BEHAVIOR ENABLED
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('menu-item')) {
+                const menuText = e.target.textContent;
+
+                if (menuText === 'MENU' || menuText === 'CLOSE') {
+                    // Use same timing as dropdown items - no initial slide-out
+                    toggleMenu();
+                } else if (menuText === 'GALLERY') {
+                    // Hide contact and about overlays when switching to gallery
+                    const contactOverlay = document.getElementById('contactOverlay');
+                    const aboutOverlay = document.getElementById('aboutOverlay');
+                    contactOverlay.classList.remove('active');
+                    aboutOverlay.classList.remove('active');
+
+                    // Remove any menu blur effects
+                    const menuBlur = document.querySelector('.menu-blur');
+                    if (menuBlur) {
+                        menuBlur.style.display = 'none';
+                    }
+
+                    // Set opacity to 0 when switching from about to gallery
+                    const previousMode = window.currentActiveMode;
+                    if (previousMode === 'about') {
+                        setModelInvisible();
+                    }
+
+                    // Gallery functionality: zoom out
+                    activateGallery();
+                    zoomCameraOutToInvisible();
+                } else if (menuText === 'CONTACT') {
+                    // Check if contact is already active
+                    if (window.currentActiveMode === 'contact') {
+                        // Close dropdown menu
+                        toggleMenu();
+                        return;
+                    }
+
+                    // Hide gallery and about overlays when switching to contact
+                    const galleryOverlay = document.getElementById('galleryOverlay');
+                    const aboutOverlay = document.getElementById('aboutOverlay');
+                    galleryOverlay.classList.remove('active');
+                    aboutOverlay.classList.remove('active');
+
+                    // Remove gallery-active class for normal menu styling
+                    document.body.classList.remove('gallery-active');
+
+                    // Turn off menu blur when closing gallery
+                    const menuBlur = document.querySelector('.menu-blur');
+                    const menu = document.querySelector('.menu');
+                    if (menuBlur) {
+                        menuBlur.style.display = 'none';
+                    }
+                    if (menu) {
+                        menu.classList.remove('blur-active');
+                    }
+
+                    // Contact functionality: trigger fast spin instead of going to specific position
+                    window.currentActiveMode = 'contact'; // Set active mode
+                    setActiveMenuItem('CONTACT'); // Set menu item as active
+
+                    // Trigger fast spin (same as scroll behavior)
+                    window.fastSpinStartAngle = window.modelCurrentAngle;
+                    window.fastSpinTargetAngle = window.modelCurrentAngle; // Return to same position
+                    window.fastSpinCurrentRotation = 0;
+                    window.fastSpinDirection = 1; // Spin clockwise
+                    window.isDoingFastSpin = true;
+                    window.modelIsSpinning = false; // Stop oscillation during spin
+
+
+                    // Zoom camera
+                    zoomCameraTo(window.contactZoomDistance);
+
+                    // Check if model is invisible (coming from gallery) and fade in
+                    if (window.currentModel) {
+                        let isCurrentlyInvisible = false;
+                        window.currentModel.traverse(function (child) {
+                            if (child.isMesh && child.material.opacity === 0) {
+                                isCurrentlyInvisible = true;
+                            }
+                        });
+
+                        if (isCurrentlyInvisible) {
+                            // Fade in the model
+                            const startTime = Date.now();
+                            const duration = 200; // 0.2 seconds fade in
+
+                            function fadeInModel() {
+                                const elapsed = Date.now() - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+                                const opacity = progress; // Fade from 0 to 1
+
+                                window.currentModel.traverse(function (child) {
+                                    if (child.isMesh) {
+                                        child.material.transparent = true;
+                                        child.material.opacity = opacity;
+                                    }
+                                });
+
+                                if (progress < 1) {
+                                    requestAnimationFrame(fadeInModel);
+                                }
+                            }
+
+                            fadeInModel();
+                        } else {
+                            // Model already visible, just ensure it's at full opacity
+                            window.currentModel.traverse(function (child) {
+                                if (child.isMesh) {
+                                    child.material.transparent = true;
+                                    child.material.opacity = 1.0;
+                                }
+                            });
+                        }
+                    }
+
+                    // Animate model to contact location
+                    animateModelPosition(window.contactModelLocation, 1000);
+
+                    // Show contact overlay and create text
+                    const contactOverlay = document.getElementById('contactOverlay');
+                    contactOverlay.classList.add('active');
+                    createContactText();
+                } else if (menuText === 'ABOUT') {
+                    // Check if about is already active
+                    if (window.currentActiveMode === 'about') {
+                        // Close dropdown menu
+                        toggleMenu();
+                        return;
+                    }
+
+                    // About functionality: change position and zoom (rotation keeps oscillating)
+                    const previousMode = window.currentActiveMode;
+
+                    // Hide gallery and contact overlays
+                    const galleryOverlay = document.getElementById('galleryOverlay');
+                    const contactOverlay = document.getElementById('contactOverlay');
+                    galleryOverlay.classList.remove('active');
+                    contactOverlay.classList.remove('active');
+
+                    // Remove gallery-active class for normal menu styling BEFORE setting active
+                    document.body.classList.remove('gallery-active');
+
+                    // Turn off menu blur when closing gallery
+                    const menuBlur = document.querySelector('.menu-blur');
+                    const menu = document.querySelector('.menu');
+                    if (menuBlur) {
+                        menuBlur.style.display = 'none';
+                    }
+                    if (menu) {
+                        menu.classList.remove('blur-active');
+                    }
+
+                    window.currentActiveMode = 'about';
+                    setActiveMenuItem('ABOUT');
+
+                    // Set opacity to 0 when switching from gallery to about
+                    if (previousMode === 'gallery') {
+                        setModelInvisible();
+                    } else {
+                        fadeInFromGallery();
+                    }
+
+                    // Change position and zoom
+                    animateModelPosition(window.aboutModelLocation, 1000);
+                    zoomCameraTo(window.aboutZoomDistance);
+
+                    // Show about overlay and create text
+                    const aboutOverlay = document.getElementById('aboutOverlay');
+                    aboutOverlay.classList.add('active');
+                    createAboutText();
+                } else if (menuText === "HOME") {
+                    const isMobile = window.innerWidth <= 900;
+
+                    // Remove any menu blur effects
+                    const menuBlur = document.querySelector('.menu-blur');
+                    if (menuBlur) {
+                        menuBlur.style.display = 'none';
+                    }
+
+                    // Reset camera to original landing page position
+                    resetCameraToOriginal();
+
+                    if (isMobile && isMenuOpen) {
+                        // Mobile behavior: menu is open, so close it
+                        const menuOverlay = document.getElementById('menuOverlay');
+
+                        // Fade away the dropdown menu
+                        menuOverlay.classList.remove('active');
+
+                        // Use toggleMenu() for consistent animation
+                        toggleMenu();
+                    } else if (isMobile && !isMenuOpen) {
+                        // Mobile behavior: menu is closed, just reset 3D model
+                    } else {
+                        // Desktop behavior: just reset 3D model
+                    }
+                }
+            }
+
+            // Handle dropdown menu items (mobile) - MOBILE BEHAVIOR ENABLED, OVERLAYS DISABLED
+            if (e.target.classList.contains('menu-overlay-item')) {
+                const menuText = e.target.textContent;
+                const isMobile = window.innerWidth <= 900;
+
+                if (menuText === 'GALLERY') {
+                    if (isMobile) {
+                        // Mobile behavior: fade dropdown, animate CLOSE to MENU (but no overlay)
+                        const menuOverlay = document.getElementById('menuOverlay');
+
+                        // Fade away the dropdown menu
+                        menuOverlay.classList.remove('active');
+
+                        // Use toggleMenu() for consistent animation
+                        toggleMenu();
+
+                        // Hide contact and about overlays when switching to gallery
+                        const contactOverlay = document.getElementById('contactOverlay');
+                        const aboutOverlay = document.getElementById('aboutOverlay');
+                        contactOverlay.classList.remove('active');
+                        aboutOverlay.classList.remove('active');
+
+                        // Remove any menu blur effects
+                        const menuBlur = document.querySelector('.menu-blur');
+                        if (menuBlur) {
+                            menuBlur.style.display = 'none';
+                        }
+
+                        // Set opacity to 0 when switching from about to gallery
+                        const previousMode = window.currentActiveMode;
+                        if (previousMode === 'about') {
+                            setModelInvisible();
+                        }
+
+                        // Gallery functionality: zoom out
+                        activateGallery();
+                        zoomCameraOutToInvisible();
+
+                    } else {
+                        // Hide contact and about overlays when switching to gallery
+                        const contactOverlay = document.getElementById('contactOverlay');
+                        const aboutOverlay = document.getElementById('aboutOverlay');
+                        contactOverlay.classList.remove('active');
+                        aboutOverlay.classList.remove('active');
+
+                        // Remove any menu blur effects
+                        const menuBlur = document.querySelector('.menu-blur');
+                        if (menuBlur) {
+                            menuBlur.style.display = 'none';
+                        }
+
+                        // Set opacity to 0 when switching from about to gallery
+                        const previousMode = window.currentActiveMode;
+                        if (previousMode === 'about') {
+                            setModelInvisible();
+                        }
+
+                        // Desktop behavior: zoom out
+                        activateGallery();
+                        zoomCameraOutToInvisible();
+                    }
+                } else if (menuText === 'CONTACT') {
+                    // Check if contact is already active
+                    if (window.currentActiveMode === 'contact') {
+                        // Close dropdown menu
+                        toggleMenu();
+                        return;
+                    }
+
+                    if (isMobile) {
+                        // Mobile behavior: fade dropdown, animate CLOSE to MENU (but no overlay)
+                        const menuOverlay = document.getElementById('menuOverlay');
+
+                        // Fade away the dropdown menu
+                        menuOverlay.classList.remove('active');
+
+                        // Use toggleMenu() for consistent animation
+                        toggleMenu();
+
+                        // Hide gallery and about overlays when switching to contact
+                        const galleryOverlay = document.getElementById('galleryOverlay');
+                        const aboutOverlay = document.getElementById('aboutOverlay');
+                        galleryOverlay.classList.remove('active');
+                        aboutOverlay.classList.remove('active');
+
+                        // Remove gallery-active class for normal menu styling
+                        document.body.classList.remove('gallery-active');
+
+                        // Turn off menu blur when closing gallery
+                        const menuBlur = document.querySelector('.menu-blur');
+                        const menu = document.querySelector('.menu');
+                        if (menuBlur) {
+                            menuBlur.style.display = 'none';
+                        }
+                        if (menu) {
+                            menu.classList.remove('blur-active');
+                        }
+
+                        // Contact functionality: trigger fast spin instead of going to specific position
+                        window.currentActiveMode = 'contact'; // Set active mode
+                        setActiveMenuItem('CONTACT'); // Set menu item as active
+
+                        // Trigger fast spin (same as scroll behavior)
+                        window.fastSpinStartAngle = window.modelCurrentAngle;
+                        window.fastSpinTargetAngle = window.modelCurrentAngle; // Return to same position
+                        window.fastSpinCurrentRotation = 0;
+                        window.fastSpinDirection = 1; // Spin clockwise
+                        window.isDoingFastSpin = true;
+                        window.modelIsSpinning = false; // Stop oscillation during spin
+
+
+                        // Zoom camera
+                        zoomCameraTo(window.contactZoomDistance);
+
+                        // Check if model is invisible (coming from gallery) and fade in
+                        if (window.currentModel) {
+                            let isCurrentlyInvisible = false;
+                            window.currentModel.traverse(function (child) {
+                                if (child.isMesh && child.material.opacity === 0) {
+                                    isCurrentlyInvisible = true;
+                                }
+                            });
+
+                            if (isCurrentlyInvisible) {
+                                // Fade in the model
+                                const startTime = Date.now();
+                                const duration = 200; // 0.2 seconds fade in
+
+                                function fadeInModel() {
+                                    const elapsed = Date.now() - startTime;
+                                    const progress = Math.min(elapsed / duration, 1);
+                                    const opacity = progress; // Fade from 0 to 1
+
+                                    window.currentModel.traverse(function (child) {
+                                        if (child.isMesh) {
+                                            child.material.transparent = true;
+                                            child.material.opacity = opacity;
+                                        }
+                                    });
+
+                                    if (progress < 1) {
+                                        requestAnimationFrame(fadeInModel);
+                                    }
+                                }
+
+                                fadeInModel();
+                            } else {
+                                // Model already visible, just ensure it's at full opacity
+                                window.currentModel.traverse(function (child) {
+                                    if (child.isMesh) {
+                                        child.material.transparent = true;
+                                        child.material.opacity = 1.0;
+                                    }
+                                });
+                            }
+                        }
+
+                        // Animate model to contact location
+                        animateModelPosition(window.contactModelLocation, 1000);
+
+                        // Show contact overlay and create text
+                        const contactOverlay = document.getElementById('contactOverlay');
+                        contactOverlay.classList.add('active');
+                        createContactText();
+                    } else {
+                        // Hide gallery and about overlays when switching to contact
+                        const galleryOverlay = document.getElementById('galleryOverlay');
+                        const aboutOverlay = document.getElementById('aboutOverlay');
+                        galleryOverlay.classList.remove('active');
+                        aboutOverlay.classList.remove('active');
+
+                        // Remove gallery-active class for normal menu styling
+                        document.body.classList.remove('gallery-active');
+
+                        // Turn off menu blur when closing gallery
+                        const menuBlur = document.querySelector('.menu-blur');
+                        const menu = document.querySelector('.menu');
+                        if (menuBlur) {
+                            menuBlur.style.display = 'none';
+                        }
+                        if (menu) {
+                            menu.classList.remove('blur-active');
+                        }
+
+                        // Desktop behavior: trigger fast spin instead of going to specific position
+                        window.currentActiveMode = 'contact'; // Set active mode
+                        setActiveMenuItem('CONTACT'); // Set menu item as active
+
+                        // Trigger fast spin (same as scroll behavior)
+                        window.fastSpinStartAngle = window.modelCurrentAngle;
+                        window.fastSpinTargetAngle = window.modelCurrentAngle; // Return to same position
+                        window.fastSpinCurrentRotation = 0;
+                        window.fastSpinDirection = 1; // Spin clockwise
+                        window.isDoingFastSpin = true;
+                        window.modelIsSpinning = false; // Stop oscillation during spin
+
+
+                        // Zoom camera
+                        zoomCameraTo(window.contactZoomDistance);
+
+                        // Check if model is invisible (coming from gallery) and fade in
+                        if (window.currentModel) {
+                            let isCurrentlyInvisible = false;
+                            window.currentModel.traverse(function (child) {
+                                if (child.isMesh && child.material.opacity === 0) {
+                                    isCurrentlyInvisible = true;
+                                }
+                            });
+
+                            if (isCurrentlyInvisible) {
+                                // Fade in the model
+                                const startTime = Date.now();
+                                const duration = 200; // 0.2 seconds fade in
+
+                                function fadeInModel() {
+                                    const elapsed = Date.now() - startTime;
+                                    const progress = Math.min(elapsed / duration, 1);
+                                    const opacity = progress; // Fade from 0 to 1
+
+                                    window.currentModel.traverse(function (child) {
+                                        if (child.isMesh) {
+                                            child.material.transparent = true;
+                                            child.material.opacity = opacity;
+                                        }
+                                    });
+
+                                    if (progress < 1) {
+                                        requestAnimationFrame(fadeInModel);
+                                    }
+                                }
+
+                                fadeInModel();
+                            } else {
+                                // Model already visible, just ensure it's at full opacity
+                                window.currentModel.traverse(function (child) {
+                                    if (child.isMesh) {
+                                        child.material.transparent = true;
+                                        child.material.opacity = 1.0;
+                                    }
+                                });
+                            }
+                        }
+
+                        // Animate model to contact location
+                        animateModelPosition(window.contactModelLocation, 1000);
+
+                        // Show contact overlay and create text
+                        const contactOverlay = document.getElementById('contactOverlay');
+                        contactOverlay.classList.add('active');
+                        createContactText();
+                    }
+                } else if (menuText === 'ABOUT') {
+                    // Check if about is already active
+                    if (window.currentActiveMode === 'about') {
+                        // Close dropdown menu
+                        toggleMenu();
+                        return;
+                    }
+
+                    if (isMobile) {
+                        // Mobile behavior: fade dropdown, animate CLOSE to MENU
+                        const menuOverlay = document.getElementById('menuOverlay');
+                        menuOverlay.classList.remove('active');
+                        toggleMenu();
+
+                        // About functionality: change position and zoom (rotation keeps oscillating)
+                        const previousMode = window.currentActiveMode;
+
+                        // Hide gallery and contact overlays
+                        const galleryOverlay = document.getElementById('galleryOverlay');
+                        const contactOverlay = document.getElementById('contactOverlay');
+                        galleryOverlay.classList.remove('active');
+                        contactOverlay.classList.remove('active');
+
+                        // Remove gallery-active class for normal menu styling BEFORE setting active
+                        document.body.classList.remove('gallery-active');
+
+                        window.currentActiveMode = 'about';
+                        setActiveMenuItem('ABOUT');
+
+                        // Set opacity to 0 when switching from gallery to about
+                        if (previousMode === 'gallery') {
+                            setModelInvisible();
+                        } else {
+                            fadeInFromGallery();
+                        }
+
+                        // Change position and zoom
+                        animateModelPosition(window.aboutModelLocation, 1000);
+                        zoomCameraTo(window.aboutZoomDistance);
+
+                        // Show about overlay
+                        const aboutOverlay = document.getElementById('aboutOverlay');
+                        aboutOverlay.classList.add('active');
+                        createAboutText();
+                    } else {
+                        // Desktop behavior: change position and zoom (rotation keeps oscillating)
+                        const previousMode = window.currentActiveMode;
+                        window.currentActiveMode = 'about';
+                        setActiveMenuItem('ABOUT');
+
+                        // Hide gallery and contact overlays
+                        const galleryOverlay = document.getElementById('galleryOverlay');
+                        const contactOverlay = document.getElementById('contactOverlay');
+                        galleryOverlay.classList.remove('active');
+                        contactOverlay.classList.remove('active');
+
+                        // Remove gallery-active class for normal menu styling
+                        document.body.classList.remove('gallery-active');
+
+                        // Set opacity to 0 when switching from gallery to about
+                        if (previousMode === 'gallery') {
+                            setModelInvisible();
+                        } else {
+                            fadeInFromGallery();
+                        }
+
+                        // Change position and zoom
+                        animateModelPosition(window.aboutModelLocation, 1000);
+                        zoomCameraTo(window.aboutZoomDistance);
+
+                        // Show about overlay
+                        const aboutOverlay = document.getElementById('aboutOverlay');
+                        aboutOverlay.classList.add('active');
+                        createAboutText();
+                    }
+                }
+            }
+        });
+
+        document.addEventListener('click', function (e) {
+            if (window.isApplyingRoute) return;
+
+            const isMenuControl = e.target.classList.contains('menu-item') || e.target.classList.contains('menu-overlay-item');
+            if (!isMenuControl) return;
+
+            const menuText = e.target.textContent;
+            if (menuText === 'GALLERY') {
+                updateRouteForMode('gallery');
+            } else if (menuText === 'CONTACT') {
+                updateRouteForMode('contact');
+            } else if (menuText === 'ABOUT') {
+                updateRouteForMode('about');
+            } else if (menuText === 'HOME') {
+                updateRouteForMode(null);
+            }
+        });
+
+        window.addEventListener('popstate', function () {
+            if (!window.currentModel) return;
+            activateRouteModeWithCover(getModeFromPath(), true);
+        });
+
+        // Function to handle about page menu background based on scroll position
+        function handleAboutMenuBackground() {
+            // Only apply logic when on about page
+            if (window.currentActiveMode !== 'about') {
+                const menuBlur = document.querySelector('.menu-blur');
+                const menu = document.querySelector('.menu');
+                if (menuBlur) {
+                    menuBlur.style.display = 'none';
+                }
+                if (menu) {
+                    menu.classList.remove('blur-active');
+                }
+                return;
+            }
+
+            const aboutContent = document.getElementById('aboutContent');
+            const menuBlur = document.querySelector('.menu-blur');
+
+            if (!aboutContent || !menuBlur) return;
+
+            // Get scroll position of about content
+            const scrollTop = aboutContent.scrollTop;
+
+            // Threshold for overlap detection (10px as requested)
+            const overlapThreshold = 45;
+
+            if (scrollTop >= overlapThreshold) {
+                // Text is scrolled down enough to potentially overlap with menu
+                menuBlur.style.display = 'block';
+            } else {
+                // Text is at top, no overlap
+                menuBlur.style.display = 'none';
+            }
+        }
+
+        // Listen for scroll events on about content
+        document.addEventListener('scroll', function (event) {
+            // Check if the scroll event is from about content
+            if (event.target && event.target.id === 'aboutContent') {
+                handleAboutMenuBackground();
+            }
+        }, true);
+
+        // Also listen for wheel events on about content for better mobile support
+        document.addEventListener('wheel', function (event) {
+            if (window.currentActiveMode === 'about') {
+                handleAboutMenuBackground();
+            }
+        }, true);
+
+    </script>
+</body>
+
+</html>

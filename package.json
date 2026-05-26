@@ -1,0 +1,7 @@
+{
+  "name": "bwigd",
+  "private": true,
+  "scripts": {
+    "build": "bash ./build.sh"
+  }
+}
